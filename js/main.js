@@ -1,3 +1,5 @@
+navigator.serviceWorker?.register('service-worker.js')
+
 document.querySelector('#add').onclick = e => {
 	let line = document.querySelector('section:first-of-type article:first-of-type').cloneNode(true)
 	line.querySelectorAll('input').forEach(el => {el.value = ''; el.classList.remove('masked')})
