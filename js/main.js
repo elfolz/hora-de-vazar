@@ -73,13 +73,24 @@ function convertTime(value) {
 function createMask() {
 	document.querySelectorAll('input').forEach(el => {
 		if (el.classList.contains('masked')) return
-		IMask(el, {
-			mask: 'hh:mm',
-			blocks: {
-				hh: {min: 0, max: 23, mask: '00'},
-				mm: {min: 0, max: 59, mask: '00'}
-			}
-		})
+		if (el.getAttribute('data-type') == 'extra') {
+			IMask(el, {
+				mask: '[#]h[h]:m[m]',
+				definitions: {
+					'#': /[-|+]/,
+					'h': /\d/,
+					'm': /\d/
+				}
+			})
+		} else {
+			IMask(el, {
+				mask: '00:00',
+				blocks: {
+					hh: {min: 0, max: 23, mask: '00'},
+					mm: {min: 0, max: 59, mask: '00'}
+				}
+			})
+		}
 		el.oninput = e => {
 			e.target.classList.remove('error')
 		}
