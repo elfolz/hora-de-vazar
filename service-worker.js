@@ -3,7 +3,8 @@ self.addEventListener('install', event => {
 })
 
 self.addEventListener('fetch', event => {
-	event.respondWith(caches.open('hora-de-vazar').then(cache => {
+	event.respondWith(caches.open('hora-de-vazar')
+	.then(cache => {
 		return cache.match(event.request)
 		.then(cachedResponse => {
 			let cachedFile = cachedResponse.clone().blob()
@@ -25,5 +26,8 @@ self.addEventListener('fetch', event => {
 			})
 			return cachedResponse || fetchedResponse
 		})
+	})
+	.catch(() => {
+		return fetch(event.request)
 	}))
 })
