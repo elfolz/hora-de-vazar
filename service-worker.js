@@ -3,31 +3,21 @@ self.addEventListener('install', event => {
 })
 
 self.addEventListener('fetch', event => {
-	event.respondWith(caches.open('hora-de-vazar')
-	.then(cache => {
-		return cache.match(event.request)
-		.then(cachedResponse => {
-			let cachedFile = cachedResponse.clone().blob()
-			const fetchedResponse = fetch(event.request)
-			.then(networkResponse => {
-				if (networkResponse.status == 200) cache.put(event.request, networkResponse.clone())
-				Promise.all([
-					cachedFile,
-					networkResponse.clone().blob()
-				]).then(response => {
-					if (!event.clientId) return
-					if (response[0].size == response[1].size) return
-					self.clients.get(event.clientId)
-					.then(client => {
-						client?.postMessage('update')
-					})
+	event.respondWith(
+		caches.open('hora-de-vazar')
+		.then(cache => {
+			return cache.match(event.request)
+			.then(cachedResponse => {
+				let fetchedResponse = fetch(event.request)
+				.then(networkResponse => {
+					if (networkResponse.status == 200) cache.put(event.request, networkResponse.clone())
+					return networkResponse
 				})
-				return networkResponse
+				return cachedResponse || fetchedResponse
 			})
-			return cachedResponse || fetchedResponse
 		})
-	})
-	.catch(() => {
-		return fetch(event.request)
-	}))
+		.catch(() => {
+			return fetch(event.request)
+		})
+	)
 })
