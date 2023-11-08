@@ -46,9 +46,13 @@ section:first-of-type {
 section:last-of-type {
 	text-align: center;
 }
-section:first-of-type article {
+section article, section div {
 	display: flex;
 	justify-content: space-between;
+}
+section article span, section div span {
+	width: 102px;
+	text-align: center;
 }
 span label {
 	display: block;
