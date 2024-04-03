@@ -66,7 +66,7 @@ function init() {
 		})
 		if (error) return
 		let extraInput = document.querySelector('input[data-type="extra"]')?.value
-		if (extraInput) horasExtra = convertTime(extraInput)
+		if (extraInput) horasExtra = convertHours(extraInput, true).valueOf()
 		let primeiraEntrada = entradas.sort((a, b) => a - b)[0]
 		let date = new Date(primeiraEntrada + jornada + pausas - horasExtra)
 		if (date.getTime() !== date.getTime()) return
@@ -77,7 +77,7 @@ function init() {
 
 function convertTime(value) {
 	let time = value?.split(':')
-	if (!time) return
+	if (!time?.length) return
 	let date = new Date()
 	date.setHours(parseInt(time[0]), parseInt(time[1]), 0, 0)
 	return date
