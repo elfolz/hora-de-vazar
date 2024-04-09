@@ -2,6 +2,7 @@
 	user-select: none;
 }
 :root {
+	color-scheme: light dark;
 	--color-primary: #00cc99;
 	--color-accent: #9966cc;
 }
