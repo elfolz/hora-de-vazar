@@ -52,7 +52,7 @@ section article, section div {
 	justify-content: space-between;
 }
 section article span, section div span {
-	width: 112px;
+	width: 120px;
 	text-align: center;
 }
 span label {
