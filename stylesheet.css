@@ -58,6 +58,7 @@ section article span, section div span {
 span label {
 	display: block;
 	text-align: center;
+	white-space: nowrap;
 	font-size: .75em;
 }
 section:first-of-type article:not(:last-of-type) {
